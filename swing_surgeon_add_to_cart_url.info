@@ -1,0 +1,6 @@
+name = Drupal Commerce Add to Cart URL Module
+description = Swing Surgeon Add To Cart URL Module
+core = 7.x
+package = SSGM Development
+php = 5.3
+version = 1.0

@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function swing_surgeon_add_to_cart_url_menu() {
+  $items['product/add/%/%'] = array(
+    'page callback' => 'swing_surgeon_add_to_cart_url_product_add',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Custom function to add product(s) to a cart by product id
+ */
+function swing_surgeon_add_to_cart_url_product_add($sku, $quantity = 1) {
+  $values = drupal_get_query_parameters();
+  if ($product = commerce_product_load_by_sku($sku)) {
+    global $user;
+    $uid = $user->uid;
+    // Create the new order in checkout; you might also check first to
+    // see if your user already has an order to use instead of a new one.
+    $order = commerce_order_new($uid, 'checkout_checkout');
+    // Lets save the order.
+    commerce_order_save($order);
+    // Add the line item to the order.
+    $line_item = commerce_product_line_item_new($product, $quantity, $order->order_id);
+    commerce_line_item_save($line_item);
+    
+    $line_item = commerce_cart_product_add($uid, $line_item);
+    drupal_goto('checkout', array('query' => $values));
+  }
+}
