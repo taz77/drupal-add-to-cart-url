@@ -1,5 +1,5 @@
 # Add to cart via a URL for Drupal Commerce 
-A simple module that allows you to add a product to a cart via a URL. This is adventageous for email marketing laniding pages.
+A simple module that allows you to add a product to a cart via a URL. This is adventageous for email marketing laniding pages. Written for Drupal 7 Commerce.
 
 Once installed a product can be added to a cart by constuction the following URL:
 http(s)://your.site.url/product/add/<SKU>/<quantity>
